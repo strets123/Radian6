@@ -2,7 +2,7 @@
 require File.expand_path('../lib/radian6/version', __FILE__)
 
 Gem::Specification.new do |s|
-  s.add_development_dependency('rake', '~> 0.8')
+  s.add_development_dependency('rake', '~> 0.9')
   s.add_development_dependency('rspec', '~> 2.5')
   s.add_development_dependency('yard')
   s.add_development_dependency('webmock')
@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
 ********************************************************************************
 eos
-  s.email = ['bru@codewitch.org']
+  s.email = ['vzmind@gmail.com']
   # s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.files = `git ls-files`.split("\n")
   s.homepage = 'https://github.com/vzmind/radian6'
