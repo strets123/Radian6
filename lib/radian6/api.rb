@@ -170,9 +170,15 @@ module Radian6
       
       protocol = @proxy.nil? ? Net::HTTP : Net::HTTP::Proxy(@proxy.host, @proxy.port)
 
-      res = protocol.start(url.host, url.port ) do |http|
+      url_sll = protocol.new(url.host, url.port )
+      url_sll.use_ssl = true
+      url_sll.verify_mode = OpenSSL::SSL::VERIFY_NONE # read into this
+      log " let's use SSL now"
+      
+      res =  url_sll.start do |http|
         http.open_timeout = 3600
         http.read_timeout = 3600
+
         log "  GET #{url.request_uri}"
         http.get(url.request_uri, args)
       end
