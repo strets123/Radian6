@@ -8,22 +8,22 @@ Gem::Specification.new do |s|
   s.add_development_dependency('webmock')
   s.add_runtime_dependency('nokogiri', '>= 1.4.4')
   s.add_runtime_dependency('em-http-request')
-  s.authors = ["Riccardo Cambiassi"]
+  s.authors = ["Vincent Spehner"]
   s.description = %q{A Ruby wrapper for the Radian6 REST API}
   s.post_install_message =<<eos
 ********************************************************************************
 
   Thank you for installing radian6
 
-  Follow @bru on Twitter for announcements, updates, and news.
-  https://twitter.com/bru
+  Follow @vzmind on Twitter for announcements, updates, and news.
+  https://twitter.com/vzmind
 
 ********************************************************************************
 eos
   s.email = ['bru@codewitch.org']
   # s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.files = `git ls-files`.split("\n")
-  s.homepage = 'https://github.com/bru/radian6'
+  s.homepage = 'https://github.com/vzmind/radian6'
   s.name = 'radian6'
   s.platform = Gem::Platform::RUBY
   s.require_paths = ['lib']

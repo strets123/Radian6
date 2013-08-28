@@ -17,9 +17,9 @@ module Radian6
       @async = opts[:async]
       @proxy = opts[:proxy]
       if opts[:sandbox]
-        @endpoint = "http://sandboxapi.radian6.com/socialcloud/v1/"
+        @endpoint = "https://demo-api.radian6.com/socialcloud/v1/"
       else
-        @endpoint = "http://api.radian6.com/socialcloud/v1/"
+        @endpoint = "https://api.radian6.com/socialcloud/v1/"
       end
 
       authenticate(username, password)
