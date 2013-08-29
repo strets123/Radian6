@@ -73,6 +73,35 @@ module Radian6
       return xml
     end
 
+    def fetchRealtimeRangeTopicPosts(hours=1,topics=[62727],media=[1,2,4,5,8,9,10,11,12,13,16],start_page=0,page_size=1000,dump_file=false)
+       xml = fetchRealtimeRangeTopicPostsXML(hours, topics, media, start_page, page_size)
+
+      if dump_file
+        log "\tDumping to file #{dump_file} at #{Time.now}"
+        f = File.new(dump_file, "w")
+        f.write(xml)
+        f.close
+
+        counter = Radian6::SAX::PostCounter.new 
+        parser = Nokogiri::XML::SAX::Parser.new(counter)
+        parser.parse(xml)
+        log "\tFinished parsing the file at #{Time.now}"
+        raise counter.error if counter.error
+        return counter
+      else
+        return Radian6::Post.from_xml(xml)
+      end
+    end
+
+    def fetchRealtimeRangeTopicPostsXML(hours=1, topics=[], media=[1,2,4,5,8,9,10,11,12,13,16], start_page=1, page_size=1000)
+      path = "data/topicdata/realtime/#{hours}/#{topics.join(',')}/#{media.join(',')}/#{start_page}/#{page_size}?includeFullContent=1"
+      log "\tGetting page #{start_page} for recent #{hours} hours in topic #{topics.join(', ')} at #{Time.now}"
+      xml = api_get(path, { 'auth_appkey' => @auth_appkey, 'auth_token' => @auth_token })
+      return xml
+    end
+
+
+
     def fetchMediaTypes
       path = "lookup/mediaproviders"
       xml = api_get(path, { 'auth_appkey' => @auth_appkey, 'auth_token' => @auth_token })
@@ -118,7 +147,7 @@ module Radian6
       md5_pass = Digest::MD5::hexdigest(password)
       xml = api_get("auth/authenticate", 
                     { 'auth_user' => username, 
-                      'auth_pass' => md5_pass,
+                      'auth_pass' => password,
                       'auth_appkey' => @auth_appkey})
       log("Received XML\n#{xml.inspect}")
       doc = Nokogiri::XML(xml)
